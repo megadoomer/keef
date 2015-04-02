@@ -1,4 +1,7 @@
 ## alice-conf
+
+[ ![Codeship Status for team-umbrella/alice-conf](https://codeship.com/projects/f6902b80-bba6-0132-755b-02d724aeca6d/status?branch=master)](https://codeship.com/projects/72244)
+
 **The configuration loader for alice, the spirit shop platform api.**
 
 The conf package reads configurations options in an overriding fashion from a number of sources. In order of importance:
