@@ -1,0 +1,36 @@
+{
+  "name": "alice-conf",
+  "version": "0.1.0",
+  "description": "Multi tier configuration package for Alice",
+  "main": "index.js",
+  "engines" : {
+    "node" : ">=0.10 <= 0.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://esatterwhite@bitbucket.org/team-umbrella/alice-conf.git"
+  },
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "keywords": [
+    "configuration",
+    "conf",
+    "nconf",
+    "argv"
+  ],
+  "author": "Eric Satterwhite",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^2.1.3",
+    "mout": "^0.11.0",
+    "nconf": "~0.6.9"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.1"
+  },
+  "bundledDependencies":[
+    "nconf",
+    "mout"
+  ]
+}

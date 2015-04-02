@@ -1,0 +1,17 @@
+{
+	"foo":{
+		"bar":{
+			"baz":"hello world"
+		}
+	},
+	"readible":true,
+	"qa":{
+		"stripe":{
+			"apiKey":null
+		}
+	}
+	,"defaults":{
+		"key1":1,
+		"key2":2
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"foo":{
+		"bar":{
+			"bells":"fake"
+		}
+	},
+	"readible":false,
+	"qa":{
+		"stripe":{
+			"apiKey":true
+		}
+	}
+}
