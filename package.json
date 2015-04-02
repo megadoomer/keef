@@ -10,6 +10,7 @@
     "type": "git",
     "url": "https://esatterwhite@bitbucket.org/team-umbrella/alice-conf.git"
   },
+  "bugs":"https://bitbucket.org/team-umbrella/alice-conf/issues",
   "scripts": {
     "test": "mocha ./test"
   },
