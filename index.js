@@ -105,7 +105,7 @@ node server -p 3001 -l stdout -l file
    , overrides   = require('./lib/overrides')                                    // static system overrides that can't / shouldn't change
    , merge       = require('mout/object/merge')
    , alicecheck  = /^alice/
-   , packagepaths = []
+   , packagepaths = [ path.join(process.cwd(), 'conf') ]
    , lookuppaths                                                                 // look up paths to possible locations where config files may live
    , startup                                                                     // referece to the conf object for start up options. Gets deleted at the end
    , configFile                                                                  // the location to look for a user defined config file, or a directory
