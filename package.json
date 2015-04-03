@@ -1,16 +1,16 @@
 {
-  "name": "alice-conf",
+  "name": "hive-conf",
   "version": "0.1.0",
-  "description": "Multi tier configuration package for Alice",
+  "description": "Multi tier configuration package for hive",
   "main": "index.js",
   "engines" : {
     "node" : ">=0.10 <= 0.12"
   },
   "repository": {
     "type": "git",
-    "url": "https://esatterwhite@bitbucket.org/team-umbrella/alice-conf.git"
+    "url": "https://esatterwhite@bitbucket.org/team-umbrella/hive-conf.git"
   },
-  "bugs":"https://bitbucket.org/team-umbrella/alice-conf/issues",
+  "bugs":"https://bitbucket.org/team-umbrella/hive-conf/issues",
   "scripts": {
     "test": "mocha ./test"
   },

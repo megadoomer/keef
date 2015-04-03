@@ -1,8 +1,8 @@
-## alice-conf
+## hive-conf
 
-[ ![Codeship Status for team-umbrella/alice-conf](https://codeship.com/projects/f6902b80-bba6-0132-755b-02d724aeca6d/status?branch=master)](https://codeship.com/projects/72244)
+[ ![Codeship Status for team-umbrella/hive-conf](https://codeship.com/projects/f6902b80-bba6-0132-755b-02d724aeca6d/status?branch=master)](https://codeship.com/projects/72244)
 
-**The configuration loader for alice, the spirit shop platform api.**
+**The configuration loader for hive, the spirit shop platform api.**
 
 The conf package reads configurations options in an overriding fashion from a number of sources. In order of importance:
 
@@ -46,9 +46,9 @@ The `conf` options can be set to read specific configuration from a file(s). The
 
 ```sh
 └── conf
-    ├── 20-alice.json
-    ├── 10-alice.json
-    └── 30-alice.json
+    ├── 20-hive.json
+    ├── 10-hive.json
+    └── 30-hive.json
 ```
 
 Given the above directory of conf files, the server can be configured by pointing the `conf` arguments at the directory
@@ -58,7 +58,7 @@ node server --conf=$HOME/conf
 ```
 
 The configruation would be read in the following priority
-``` 10-alice.json < 20-alice.json < 30-alice.json```
+``` 10-hive.json < 20-hive.json < 30-hive.json```
 
 where 20 overrides 10, and 30 overrides 20.
 
@@ -66,7 +66,7 @@ where 20 overrides 10, and 30 overrides 20.
 defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in `conf/lib/defaults.js` and are used only as fallback values.
 
 ### Option Shorthands
-Top level options can be aliased. Short hand aliases can be found and defined in the `lib/shorthands.js' module of `alice-conf`
+Top level options can be aliased. Short hand aliases can be found and defined in the `lib/shorthands.js' module of `hive-conf`
 
 Flag | Shorthand | Description 
 -----|:---------:|------------

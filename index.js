@@ -43,9 +43,9 @@ The `conf` options can be set to read specific configuration from a file(s). The
 
 ```sh
 └── conf
-    ├── 20-alice.json
-    ├── 10-alice.json
-    └── 30-alice.json
+    ├── 20-hive.json
+    ├── 10-hive.json
+    └── 30-hive.json
 ```
 
 Given the above directory of conf files, the server can be configured by pointing the `conf` arguments at the directory
@@ -55,15 +55,15 @@ node server --conf=$HOME/conf
 ```
 
 The configruation would be read in the following priority
-``` 10-alice.json < 20-alice.json < 30-alice.json```
+``` 10-hive.json < 20-hive.json < 30-hive.json```
 
 where 20 overrides 10, and 30 overrides 20.
 
 ### System defaults
-defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in the {@link module:alice-conf/lib/defaults|Defaults} module and are used only as fallback values.
+defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in the {@link module:hive-conf/lib/defaults|Defaults} module and are used only as fallback values.
 
 ### Option Shorthands
-Top level options can be aliased. Short hand aliases can be found and defined in the {@link module:alice-conf/lib/shorthands|Shorthands} module of `alice-conf`
+Top level options can be aliased. Short hand aliases can be found and defined in the {@link module:hive-conf/lib/shorthands|Shorthands} module of `hive-conf`
 
 Flag | Shorthand | Description 
 -----|:---------:|:------------
@@ -81,8 +81,8 @@ PORT=3001 logger=stdout nodeserver -l file
 ```sh
 node server -p 3001 -l stdout -l file
 ```
- * @summary The configuration loader for alice, the spirit shop platform api.*
- * @module alice-conf
+ * @summary The configuration loader for hive, the spirit shop platform api.*
+ * @module hive-conf
  * @author Eric Satterwhite
  * @since 0.1.0
  * @requires nconf
@@ -90,21 +90,21 @@ node server -p 3001 -l stdout -l file
  * @requires os
  * @requires debug
  * @requires fs
- * @requires alice-conf/lib/shorthands
- * @requires alice-conf/lib/defaults
- * @requires alice-conf/lib/overrides
+ * @requires hive-conf/lib/shorthands
+ * @requires hive-conf/lib/defaults
+ * @requires hive-conf/lib/overrides
  */
 
  var nconf       = require( 'nconf' )                                            // flatiron nconf module
    , path        = require( 'path' )                                             // node path module
    , os          = require( 'os' )                                               // node os module
    , fs          = require( 'fs' )                                               // node fs module
-   , debug       = require( 'debug' )('alice:conf')                              // debug function spoped to alice:conf
+   , debug       = require( 'debug' )('hive:conf')                              // debug function spoped to hive:conf
    , shorthands  = require('./lib/shorthands')                                   // quick argv shorthands mapping
    , defaults    = require('./lib/defaults')                                     // config defaults
    , overrides   = require('./lib/overrides')                                    // static system overrides that can't / shouldn't change
    , merge       = require('mout/object/merge')
-   , alicecheck  = /^alice/
+   , hivecheck  = /^hive/
    , packagepaths = [ path.join(process.cwd(), 'conf') ]
    , lookuppaths                                                                 // look up paths to possible locations where config files may live
    , startup                                                                     // referece to the conf object for start up options. Gets deleted at the end
@@ -114,9 +114,9 @@ node server -p 3001 -l stdout -l file
 
 // order matters, otherwise this could be an object
 lookuppaths =[
-   ['project', path.normalize( path.join(overrides.PROJECT_ROOT,"alice.json") )]
- , ['home',path.normalize( path.join(( process.env.USERPROFILE || process.env.HOME || overrides.PROJECT_ROOT ),'.config', "alice.json") ) ]
- , ['etc', path.normalize('/etc/alice.json')]
+   ['project', path.normalize( path.join(overrides.PROJECT_ROOT,"hive.json") )]
+ , ['home',path.normalize( path.join(( process.env.USERPROFILE || process.env.HOME || overrides.PROJECT_ROOT ),'.config', "hive.json") ) ]
+ , ['etc', path.normalize('/etc/hive.json')]
 ]
 
 startup = nconf
@@ -124,7 +124,7 @@ startup = nconf
          .env({separator:'__'})
          .defaults( defaults );
 
-configFile = path.resolve( startup.get( 'conf' ) || 'alice.json' )
+configFile = path.resolve( startup.get( 'conf' ) || 'hive.json' )
 
 startup.remove('env');
 startup.remove('argv');
@@ -139,7 +139,7 @@ if(fs.existsSync( overrides.PACKAGE_PATH ) ){
    packagepaths = fs
                   .readdirSync( overrides.PACKAGE_PATH )
                   .filter( function( dir ){
-                     return alicecheck.test( dir )
+                     return hivecheck.test( dir )
                   })
                   .map(function( dir ){
                      return path.join(overrides.PACKAGE_PATH, dir, 'conf' )
