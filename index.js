@@ -109,12 +109,17 @@ node server -p 3001 -l stdout -l file
    , lookuppaths                                                                 // look up paths to possible locations where config files may live
    , startup                                                                     // referece to the conf object for start up options. Gets deleted at the end
    , configFile                                                                  // the location to look for a user defined config file, or a directory
+   , envFile
    , conf                                                                        // the final configuration object to export
    ;
 
+envFile = util.format('hive.%s.js', startup.get('NODE_ENV') || 'development');
+envFile = path.join(process.cwd(), path.resolve(envFile));
+
 // order matters, otherwise this could be an object
 lookuppaths =[
-   ['project', path.normalize( path.join(overrides.PROJECT_ROOT,"hive.json") )]
+   ['nenv', envfile]
+ , ['project', path.normalize( path.join(overrides.PROJECT_ROOT,"hive.json") )]
  , ['home',path.normalize( path.join(( process.env.USERPROFILE || process.env.HOME || overrides.PROJECT_ROOT ),'.config', "hive.json") ) ]
  , ['etc', path.normalize('/etc/hive.json')]
 ]
