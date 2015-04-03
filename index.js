@@ -95,41 +95,47 @@ node server -p 3001 -l stdout -l file
  * @requires hive-conf/lib/overrides
  */
 
- var nconf       = require( 'nconf' )                                            // flatiron nconf module
-   , path        = require( 'path' )                                             // node path module
-   , os          = require( 'os' )                                               // node os module
-   , fs          = require( 'fs' )                                               // node fs module
-   , debug       = require( 'debug' )('hive:conf')                              // debug function spoped to hive:conf
-   , shorthands  = require('./lib/shorthands')                                   // quick argv shorthands mapping
-   , defaults    = require('./lib/defaults')                                     // config defaults
-   , overrides   = require('./lib/overrides')                                    // static system overrides that can't / shouldn't change
-   , merge       = require('mout/object/merge')
-   , hivecheck  = /^hive/
-   , packagepaths = [ path.join(process.cwd(), 'conf') ]
-   , lookuppaths                                                                 // look up paths to possible locations where config files may live
-   , startup                                                                     // referece to the conf object for start up options. Gets deleted at the end
-   , configFile                                                                  // the location to look for a user defined config file, or a directory
+ var nconf        = require( 'nconf' )                                            // flatiron nconf module
+   , path         = require( 'path' )                                             // node path module
+   , util         = require( 'util' )                                             // node path module
+   , os           = require( 'os' )                                               // node os module
+   , fs           = require( 'fs' )                                               // node fs module
+   , debug        = require( 'debug' )('hive:conf')                               // debug function spoped to hive:conf
+   , shorthands   = require('./lib/shorthands')                                   // quick argv shorthands mapping
+   , defaults     = require('./lib/defaults')                                     // config defaults
+   , overrides    = require('./lib/overrides')                                    // static system overrides that can't / shouldn't change
+   , merge        = require('mout/object/merge')
+   , hivecheck    = /^hive/
+   , apppaths     = [ ]
+   , defaultCfg   = {}
+   , modules
+   , lookuppaths                                                                  // look up paths to possible locations where config files may live
+   , startup                                                                      // referece to the conf object for start up options. Gets deleted at the end
+   , configFile                                                                   // the location to look for a user defined config file, or a directory
    , envFile
-   , conf                                                                        // the final configuration object to export
+   , conf
+   , cwd                                                                          // the final configuration object to export
    ;
 
-envFile = util.format('hive.%s.js', startup.get('NODE_ENV') || 'development');
-envFile = path.join(process.cwd(), path.resolve(envFile));
-
-// order matters, otherwise this could be an object
-lookuppaths =[
-   ['nenv', envfile]
- , ['project', path.normalize( path.join(overrides.PROJECT_ROOT,"hive.json") )]
- , ['home',path.normalize( path.join(( process.env.USERPROFILE || process.env.HOME || overrides.PROJECT_ROOT ),'.config', "hive.json") ) ]
- , ['etc', path.normalize('/etc/hive.json')]
-]
+cwd = process.cwd();
 
 startup = nconf
          .argv()
          .env({separator:'__'})
          .defaults( defaults );
 
-configFile = path.resolve( startup.get( 'conf' ) || 'hive.json' )
+envFile = util.format('hive.%s.json', startup.get('NODE_ENV') || 'development');
+envFile = path.resolve( cwd, envFile);
+
+// order matters, otherwise this could be an object
+lookuppaths =[
+   ['nenv', envFile ]
+ , ['project', path.normalize( path.join( overrides.PROJECT_ROOT,"hive.json" ) )]
+ , ['home',path.normalize( path.join(( process.env.USERPROFILE || process.env.HOME || overrides.PROJECT_ROOT ),'.config', "hive.json") ) ]
+ , ['etc', path.normalize('/etc/hive.json')]
+];
+
+configFile = path.resolve( startup.get( 'conf' ) || 'hive.json' );
 
 startup.remove('env');
 startup.remove('argv');
@@ -140,66 +146,65 @@ debug('config file set to %s', configFile );
 debug('project root set to %s', overrides.PROJECT_ROOT );
 debug('package path set to %s', overrides.PACKAGE_PATH );
 
-if(fs.existsSync( overrides.PACKAGE_PATH ) ){
-   packagepaths = fs
-                  .readdirSync( overrides.PACKAGE_PATH )
-                  .filter( function( dir ){
-                     return hivecheck.test( dir )
-                  })
-                  .map(function( dir ){
-                     return path.join(overrides.PACKAGE_PATH, dir, 'conf' )
-                  })
-}
-
-debug("configuration modules %s", packagepaths.join(', '))
 
 
 conf = nconf
       .overrides( overrides )
       .argv( shorthands )
-      .env({separator:'__'})
+      .env({separator:'__'});
+
 
 // if the specified config file is actually a directory
 // start looking for json files and try to sort them
-if(  fs.existsSync( configFile ) && fs.statSync( configFile ).isDirectory() ){
-   debug('detected config directorty')
-   
-   fs
-      .readdirSync( configFile )
-      .filter( function( file ){
-         return (/\.json$/).test( file );
-      })
-      .sort( function( file_a, file_b ){
-         return file_a < file_b;
-      })
-      .forEach( function( file ){
-         var filepath = path.normalize( path.join( configFile, file ) );
-         debug('loading config file `%s` %s', file, filepath);
-         conf = conf.file( file, filepath );
-      })
+if( fs.existsSync( configFile ) ){
+   if( fs.statSync( configFile ).isDirectory() ){
+      debug('detected config directorty')
+      
+      fs
+         .readdirSync( configFile )
+         .filter( function( file ){
+            return (/\.json$/).test( file );
+         })
+         .sort( function( file_a, file_b ){
+            return file_a < file_b;
+         })
+         .forEach( function( file ){
+            var filepath = path.normalize( path.join( configFile, file ) );
+            debug('loading config file `%s` %s', file, filepath);
+            conf = conf.file( file, filepath );
+         });
+   } else{
+      conf = conf.file( 'conf', configFile );
+   }
 }
 
+
 lookuppaths.forEach(function( lp ){
-   debug('loading config file `%s`: %s', lp[0], lp[1])
-   conf = conf.file( lp[0], lp[1] )
+   debug('loading config file `%s`: %s', lp[0], lp[1]);
+   conf = conf.file( lp[0], lp[1] );
 });
-debug('setting config defaults')
 
+apppaths = conf.get('hive:applications');
+apppaths = Array.isArray( apppaths ) ? apppaths : [apppaths];
+apppaths.push( cwd );
 
-var defaultCfg = {};
+debug('setting config defaults');
+debug("configuration modules %s", apppaths.join(', '));
 
-packagepaths.forEach(function( pconf ){
+apppaths.forEach(function( pconf ){
    var config;
    try{
-      config = require( pconf )
-      defaultCfg = merge( defaultCfg, config )
-      debug('loaded package defaults from %s', pconf  )
+      config = require( path.join( pconf, 'conf' ) );
+      defaultCfg = merge( defaultCfg, config );
+      debug('loaded package defaults from %s', pconf );
    } catch( e ){
-      debug('unable to load %s: %s', pconf, e.message )
+      debug('unable to load %s configuration: %s', pconf, e.message );
    }
 });
 
-defaultCfg = merge( defaultCfg, defaults )
+apppaths.pop();
+
+defaultCfg = merge( defaultCfg, defaults );
 conf
    .defaults(defaultCfg);
 
