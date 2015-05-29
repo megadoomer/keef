@@ -1,6 +1,6 @@
 {
   "name": "hive-conf",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Multi tier configuration package for hive",
   "main": "index.js",
   "engines" : {
