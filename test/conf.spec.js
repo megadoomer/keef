@@ -15,10 +15,6 @@ describe('Conf loader', function(){
 
 		});
 
-		it('should read use default values',function(){
-			assert.equal( conf.get('jwtToken:hours'), 3 )
-		});
-
 		it('should apply files in an overriding fashion', function(){
 			assert.equal(conf.get('foo:bar:bells'), 'real', "expected real")
 			assert.equal(conf.get('readible'), false )
