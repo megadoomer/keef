@@ -1,0 +1,6 @@
+scripts/
+test/
+*.tgz
+_packages/
+bamboo_artifacts/
+tap.xml
