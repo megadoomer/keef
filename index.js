@@ -113,6 +113,9 @@ node server -p 3001 -l stdout -l file
    , startup                                                                      // referece to the conf object for start up options. Gets deleted at the end
    , configFile                                                                   // the location to look for a user defined config file, or a directory
    , envFile
+   , pkg
+   , pkgname
+   , pkgfile
    , conf
    , cwd                                                                          // the final configuration object to export
    ;
@@ -124,19 +127,29 @@ startup = nconf
          .env({separator:'__'})
          .defaults( defaults );
 
-envFile = util.format('hive.%s.json', startup.get('NODE_ENV') || 'development');
+try{
+   pkg     = path.join(cwd, 'package.json')
+   pkgname = require(pkg).name.replace('-','.')
+} catch( e ){
+   debug('package error ', e.message)
+   pkgname = 'hive'
+}
+
+pkgfile = pkgname +'.json'
+envFile = util.format('%s.%s.json', pkgname, startup.get('NODE_ENV') || 'development');
 envFile = path.resolve( cwd, envFile);
+debug("package info: ", pkgname, pkg)
 
 // order matters, otherwise this could be an object
 lookuppaths =[
    ['nenv', envFile ]
- , ['project', path.normalize( path.join( overrides.PROJECT_ROOT,"hive.json" ) )]
- , ['home',path.normalize( path.join(( process.env.USERPROFILE || process.env.HOME || overrides.PROJECT_ROOT ),'.config', "hive.json") ) ]
- , ['etc', path.normalize('/etc/hive.json')]
+ , ['project', path.normalize( path.join( overrides.PROJECT_ROOT, pkgfile ) )]
+ , ['home',path.normalize( path.join(( process.env.USERPROFILE || process.env.HOME || overrides.PROJECT_ROOT ),'.config', pkgfile) ) ]
+ , ['etc', path.normalize('/etc/' + pkgfile )]
 ];
 
-configFile = path.resolve( startup.get( 'conf' ) || 'hive.json' );
-
+configFile = path.resolve( startup.get( 'conf' ) || pkgfile );
+overrides.CONFIG_PATH = configFile
 startup.remove('env');
 startup.remove('argv');
 startup.remove('defaults');
