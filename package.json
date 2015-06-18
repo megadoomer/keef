@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://esatterwhite@bitbucket.org/team-umbrella/hive-conf.git"
+    "url": "https://esatterwhite@bitbucket.org/megadoomer/keef.git"
   },
-  "bugs":"https://bitbucket.org/team-umbrella/hive-conf/issues",
+  "bugs":"https://bitbucket.org/megadoomer/keef/issues",
   "scripts": {
     "test": "node ./scripts/test.js"
   },
