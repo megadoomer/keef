@@ -43,9 +43,9 @@ The `conf` options can be set to read specific configuration from a file(s). The
 
 ```sh
 └── conf
-    ├── 20-hive.json
-    ├── 10-hive.json
-    └── 30-hive.json
+    ├── 20-keef.json
+    ├── 10-keef.json
+    └── 30-keef.json
 ```
 
 Given the above directory of conf files, the server can be configured by pointing the `conf` arguments at the directory
@@ -55,15 +55,15 @@ node server --conf=$HOME/conf
 ```
 
 The configruation would be read in the following priority
-``` 10-hive.json < 20-hive.json < 30-hive.json```
+``` 10-keef.json < 20-keef.json < 30-keef.json```
 
 where 20 overrides 10, and 30 overrides 20.
 
 ### System defaults
-defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in the {@link module:hive-conf/lib/defaults|Defaults} module and are used only as fallback values.
+defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in the {@link module:keef-conf/lib/defaults|Defaults} module and are used only as fallback values.
 
 ### Option Shorthands
-Top level options can be aliased. Short hand aliases can be found and defined in the {@link module:hive-conf/lib/shorthands|Shorthands} module of `hive-conf`
+Top level options can be aliased. Short hand aliases can be found and defined in the {@link module:keef-conf/lib/shorthands|Shorthands} module of `keef-conf`
 
 Flag | Shorthand | Description 
 -----|:---------:|:------------
@@ -81,8 +81,8 @@ PORT=3001 logger=stdout nodeserver -l file
 ```sh
 node server -p 3001 -l stdout -l file
 ```
- * @summary The configuration loader for hive, the spirit shop platform api.*
- * @module hive-conf
+ * @summary The configuration loader for keef, the spirit shop platform api.*
+ * @module keef-conf
  * @author Eric Satterwhite
  * @since 0.1.0
  * @requires nconf
@@ -90,9 +90,9 @@ node server -p 3001 -l stdout -l file
  * @requires os
  * @requires debug
  * @requires fs
- * @requires hive-conf/lib/shorthands
- * @requires hive-conf/lib/defaults
- * @requires hive-conf/lib/overrides
+ * @requires keef-conf/lib/shorthands
+ * @requires keef-conf/lib/defaults
+ * @requires keef-conf/lib/overrides
  */
 
  var nconf        = require( 'nconf' )                                            // flatiron nconf module
@@ -100,12 +100,12 @@ node server -p 3001 -l stdout -l file
    , util         = require( 'util' )                                             // node path module
    , os           = require( 'os' )                                               // node os module
    , fs           = require( 'fs' )                                               // node fs module
-   , debug        = require( 'debug' )('hive:conf')                               // debug function spoped to hive:conf
+   , debug        = require( 'debug' )('keef:conf')                               // debug function spoped to keef:conf
    , shorthands   = require('./lib/shorthands')                                   // quick argv shorthands mapping
    , defaults     = require('./lib/defaults')                                     // config defaults
    , overrides    = require('./lib/overrides')                                    // static system overrides that can't / shouldn't change
    , merge        = require('mout/object/merge')
-   , hivecheck    = /^hive/
+   , keefcheck    = /^keef/
    , apppaths     = [ ]
    , defaultCfg   = {}
    , modules
@@ -132,7 +132,7 @@ try{
    pkgname = require(pkg).name.replace('-','.')
 } catch( e ){
    debug('package error ', e.message)
-   pkgname = 'hive'
+   pkgname = 'megadoomer'
 }
 
 pkgfile = pkgname +'.json'
@@ -197,7 +197,7 @@ lookuppaths.forEach(function( lp ){
    conf = conf.file( lp[0], lp[1] );
 });
 
-apppaths = conf.get('hive:applications');
+apppaths = conf.get(pkgname + ':applications');
 apppaths = Array.isArray( apppaths ) ? apppaths : [apppaths];
 apppaths.push( cwd );
 
