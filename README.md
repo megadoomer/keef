@@ -46,9 +46,9 @@ The `conf` options can be set to read specific configuration from a file(s). The
 
 ```sh
 └── conf
-    ├── 20-hive.json
-    ├── 10-hive.json
-    └── 30-hive.json
+    ├── 20-second.json
+    ├── 10-first.json
+    └── 30-third.json
 ```
 
 Given the above directory of conf files, the server can be configured by pointing the `conf` arguments at the directory
