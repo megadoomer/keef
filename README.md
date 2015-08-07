@@ -66,7 +66,7 @@ where 20 overrides 10, and 30 overrides 20.
 defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in `conf/lib/defaults.js` and are used only as fallback values.
 
 ### Option Shorthands
-Top level options can be aliased. Short hand aliases can be found and defined in the `lib/shorthands.js' module of `hive-conf`
+Top level options can be aliased. Short hand aliases can be found and defined in the `lib/shorthands.js` module.
 
 Flag | Shorthand | Description 
 -----|:---------:|------------
