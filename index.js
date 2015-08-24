@@ -197,7 +197,7 @@ lookuppaths.forEach(function( lp ){
    conf = conf.file( lp[0], lp[1] );
 });
 
-apppaths = conf.get(pkgname + ':applications');
+apppaths = conf.get(pkgname + ':applications') || [];
 apppaths = Array.isArray( apppaths ) ? apppaths : [apppaths];
 apppaths.push( cwd );
 
