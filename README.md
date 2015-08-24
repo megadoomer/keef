@@ -2,7 +2,7 @@
 
 [ ![Codeship Status for megadoomer/keef](https://codeship.com/projects/0e911ba0-bbd4-0132-2beb-7ab97aac1fb6/status?branch=master)](https://codeship.com/projects/72290)
 
-**The configuration loader for the hive web application platform**
+**The configuration loader for the megadoomer web application platform**
 
 The conf package reads configurations options in an overriding fashion from a number of sources. In order of importance:
 
@@ -46,9 +46,9 @@ The `conf` options can be set to read specific configuration from a file(s). The
 
 ```sh
 └── conf
-    ├── 20-hive.json
-    ├── 10-hive.json
-    └── 30-hive.json
+    ├── 20-second.json
+    ├── 10-first.json
+    └── 30-third.json
 ```
 
 Given the above directory of conf files, the server can be configured by pointing the `conf` arguments at the directory
@@ -66,7 +66,7 @@ where 20 overrides 10, and 30 overrides 20.
 defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in `conf/lib/defaults.js` and are used only as fallback values.
 
 ### Option Shorthands
-Top level options can be aliased. Short hand aliases can be found and defined in the `lib/shorthands.js' module of `hive-conf`
+Top level options can be aliased. Short hand aliases can be found and defined in the `lib/shorthands.js` module.
 
 Flag | Shorthand | Description 
 -----|:---------:|------------
