@@ -1,16 +1,16 @@
 {
   "name": "keef",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Multi tier configuration package for hive",
   "main": "index.js",
-  "engines" : {
-    "node" : ">=0.10"
+  "engines": {
+    "node": ">=0.10"
   },
   "repository": {
     "type": "git",
     "url": "https://esatterwhite@bitbucket.org/megadoomer/keef.git"
   },
-  "bugs":"https://bitbucket.org/megadoomer/keef/issues",
+  "bugs": "https://bitbucket.org/megadoomer/keef/issues",
   "scripts": {
     "test": "node ./scripts/test.js"
   },
@@ -30,7 +30,7 @@
   "devDependencies": {
     "mocha": "^2.2.1"
   },
-  "bundledDependencies":[
+  "bundledDependencies": [
     "nconf",
     "mout"
   ]
