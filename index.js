@@ -128,7 +128,7 @@ startup = nconf
          .defaults( defaults );
 
 try{
-   pkg     = path.join(cwd, 'package.json')
+   pkg     = path.join(overrides.PROJECT_ROOT, 'package.json')
    pkgname = require(pkg).name.replace('-','.')
 } catch( e ){
    debug('package error ', e.message)
