@@ -100,6 +100,7 @@ node server -p 3001 -l stdout -l file
    , util         = require( 'util' )                                             // node path module
    , os           = require( 'os' )                                               // node os module
    , fs           = require( 'fs' )                                               // node fs module
+   , Etcd         = require('nconf-etcd2')
    , debug        = require( 'debug' )('keef:conf')                               // debug function spoped to keef:conf
    , shorthands   = require('./lib/shorthands')                                   // quick argv shorthands mapping
    , defaults     = require('./lib/defaults')                                     // config defaults
@@ -116,6 +117,7 @@ node server -p 3001 -l stdout -l file
    , pkg
    , pkgname
    , pkgfile
+   , etc_config
    , conf
    , cwd                                                                          // the final configuration object to export
    ;
@@ -214,6 +216,15 @@ apppaths.forEach(function( pconf ){
       debug('unable to load %s configuration: %s', pconf, e.message );
    }
 });
+
+etc_config = conf.get('etcd')
+debug('etcd config: ', etc_config )
+if( etc_config && etc_config.hosts ){
+  let etc_hosts = toArray( typeof etc_config.hosts === 'string' ? etc_config.hosts.split(',') : etc_config.hosts );
+  debug('found etcd hosts:', etc_hosts)
+  etc_config.hosts = etc_hosts;
+  etc_hosts && conf.use('etcd', etc_config );
+}
 
 apppaths.pop();
 
