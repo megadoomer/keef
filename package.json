@@ -32,7 +32,7 @@
     "mocha": "^2.2.1"
   },
   "bundledDependencies": [
-    "nconf",
-    "mout"
+    "mout",
+    "debug"
   ]
 }
