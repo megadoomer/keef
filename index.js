@@ -220,7 +220,7 @@ apppaths.forEach(function( pconf ){
 etc_config = conf.get('etcd')
 debug('etcd config: ', etc_config )
 if( etc_config && etc_config.hosts ){
-  let etc_hosts = toArray( typeof etc_config.hosts === 'string' ? etc_config.hosts.split(',') : etc_config.hosts );
+  var etc_hosts = toArray( typeof etc_config.hosts === 'string' ? etc_config.hosts.split(',') : etc_config.hosts );
   debug('found etcd hosts:', etc_hosts)
   etc_config.hosts = etc_hosts;
   etc_hosts && conf.use('etcd', etc_config );
