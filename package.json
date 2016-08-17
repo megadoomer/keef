@@ -1,6 +1,6 @@
 {
   "name": "keef",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Multi tier configuration package for hive",
   "main": "index.js",
   "engines": {
