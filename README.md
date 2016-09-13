@@ -10,7 +10,8 @@ The conf package reads configurations options in an overriding fashion from a nu
 2. Command line arguments
 3. Environment variables
 4. A configuration file(s)
-5. System specified defaults
+5. Data loaded from an ETCD2 backend if specified
+6. System specified defaults
 
 ### Overrides
 Overrides can not be overriden or changed at any point in time. The are defined in `conf/lib/overrides.js` and should be reserved for static run time properties. Conf serves as a central place to get that information. 
