@@ -93,10 +93,10 @@ keef.set('a:b:c', 1)
 ```
 
 ### System defaults
-defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in the {@link module:keef-conf/lib/defaults|Defaults} module and are used only as fallback values.
+defaults are what they sound like. Sane defaults for values that are needed to get the application running. They are located in the {@link module:keef/lib/defaults|Defaults} module and are used only as fallback values.
 
 ### Option Shorthands
-Top level options can be aliased. Short hand aliases can be found and defined in the {@link module:keef-conf/lib/shorthands|Shorthands} module of `keef-conf`
+Top level options can be aliased. Short hand aliases can be found and defined in the {@link module:keef/lib/shorthands|Shorthands} module of `keef`
 
 Flag | Shorthand | Description 
 -----|:---------:|:------------
@@ -123,9 +123,9 @@ node server -p 3001 -l stdout -l file
  * @requires os
  * @requires debug
  * @requires fs
- * @requires keef-conf/lib/shorthands
- * @requires keef-conf/lib/defaults
- * @requires keef-conf/lib/overrides
+ * @requires keef/lib/shorthands
+ * @requires keef/lib/defaults
+ * @requires keef/lib/overrides
  */
 
  var nconf        = require( 'nconf' )                                            // flatiron nconf module
