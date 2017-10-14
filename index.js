@@ -194,8 +194,6 @@ debug('config file set to %s', configFile );
 debug('project root set to %s', overrides.PROJECT_ROOT );
 debug('package path set to %s', overrides.PACKAGE_PATH );
 
-
-
 conf = nconf
       .overrides( overrides )
       .argv( shorthands )
@@ -207,7 +205,6 @@ conf = nconf
 if( fs.existsSync( configFile ) ){
    if( fs.statSync( configFile ).isDirectory() ){
       debug('detected config directorty')
-      
       fs
          .readdirSync( configFile )
          .filter( function( file ){
