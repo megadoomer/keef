@@ -2,7 +2,7 @@
 
 [ ![Codeship Status for megadoomer/keef](https://codeship.com/projects/0e911ba0-bbd4-0132-2beb-7ab97aac1fb6/status?branch=master)](https://codeship.com/projects/72290)
 
-**The configuration loader for the megadoomer web application platform**
+**Multi tier configuration loader as a package**
 
 The conf package reads configurations options in an overriding fashion from a number of sources. In order of importance:
 
