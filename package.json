@@ -1,10 +1,10 @@
 {
   "name": "keef",
   "version": "2.0.2",
-  "description": "Multi tier configuration package for hive",
+  "description": "Multi tier configuration loader as a package",
   "main": "index.js",
   "engines": {
-    "node": ">=0.10"
+    "node": ">=4.0.0"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,8 @@
     "nconf",
     "argv"
   ],
-  "author": "Eric Satterwhite",
-  "license": "ISC",
+  "author": "Eric Satterwhite <esatterwhite@wi.rr.com>",
+  "license": "MIT",
   "dependencies": {
     "debug": "^2.1.3",
     "mout": "^1.0.0",
@@ -30,9 +30,5 @@
   },
   "devDependencies": {
     "mocha": "^2.2.1"
-  },
-  "bundledDependencies": [
-    "mout",
-    "debug"
-  ]
+  }
 }
