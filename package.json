@@ -1,6 +1,6 @@
 {
   "name": "keef",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Multi tier configuration loader as a package",
   "main": "index.js",
   "engines": {
