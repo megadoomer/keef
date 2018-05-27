@@ -8,8 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://esatterwhite@bitbucket.org/megadoomer/keef.git"
+    "url": "https://esatterwhite@bitbucket.org/megadoomer/keef"
   },
+  "homepage": "https://esatterwhite@bitbucket.org/megadoomer/keef",
   "bugs": "https://bitbucket.org/megadoomer/keef/issues",
   "scripts": {
     "test": "tap test --cov -Rclassic",
