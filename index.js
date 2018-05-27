@@ -253,16 +253,15 @@ if( etc_config && etc_config.hosts ){
     var etc_hosts = toArray( etc_config.hosts );
     debug('found etcd hosts:', etc_hosts)
     etc_config.hosts = etc_hosts;
-    debugger
-    etc_hosts && conf.use('etcd', etc_config );
+    etc_hosts && conf.use('etcd', etc_config )
   } catch (e) {
     debug('unable to load etcd configuration', e)
   }
 }
 
-apppaths.pop();
+apppaths.pop()
 
-defaultCfg = merge(true, {}, defaultCfg, defaults );
+defaultCfg = merge(true, {}, defaultCfg, defaults )
 conf.defaults(defaultCfg)
 
 function toArray(item) {
