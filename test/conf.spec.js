@@ -1,30 +1,29 @@
-var assert = require('assert')
-  , conf   = require('../')
+const tap = require('tap')
+const keef = require('../')
 
+const test = tap.test
+const threw = tap.threw
 
+test('Conf loader', (t) => {
+  t.test('configuration heirarchy', (tt) => {
+    tt.equal( keef.get('foo:bar:baz'), "hello world", 'should read a directory')
+    tt.equal( keef.get('STORAGE_TEST_A'), 'foo', 'env STORATE_TEST_A' )
+    tt.equal( keef.get('STORAGE_TEST_B'), 'bar', 'env STORAGE_TEST_B' )
+    tt.test('should apply files in an overriding fashion', (ttt) => {
+      ttt.equal(keef.get('foo:bar:bells'), 'real', "expected real")
+      ttt.equal(keef.get('readible'), false )
+      ttt.end()
+    })
+    tt.end()
+  })
 
-describe('Conf loader', function(){
-	describe('configuration heirarchy', function(){
-		it('should read a directory', function(){
-			assert.equal( conf.get('foo:bar:baz'), "hello world" )
-		});
+  t.test('should allow values to be set', (tt) => {
+    tt.doesNotThrow(() => {
+      keef.set('foo:bar:set', {key:'value'})
+    })
+    tt.equal( keef.get('foo:bar:set:key'), 'value')
+    tt.end()
+  })
 
-		it('should read env variables',function(){
-			assert.equal( conf.get('STORAGE_TEST_A'), 'foo' )
-			assert.equal( conf.get('STORAGE_TEST_B'), 'bar' )
-
-		});
-
-		it('should apply files in an overriding fashion', function(){
-			assert.equal(conf.get('foo:bar:bells'), 'real', "expected real")
-			assert.equal(conf.get('readible'), false )
-		});
-	});
-	it('should allow values to be set',function( done ){
-		assert.doesNotThrow(function(){
-			conf.set('foo:bar:set', {key:'value'})
-		});
-		assert.equal( conf.get('foo:bar:set:key'), 'value')
-		done();
-	});
-});
+  t.end()
+}).catch(threw)

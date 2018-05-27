@@ -1,2 +1,4 @@
 node_modules/
 tap.xml
+.nyc_output
+coverage/
