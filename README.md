@@ -59,7 +59,7 @@ node server --conf=$HOME/conf
 ```
 
 The configruation would be read in the following priority
-``` 10-hive.json < 20-hive.json < 30-hive.json```
+``` 10-first.json < 20-second.json < 30-third.json```
 
 where 20 overrides 10, and 30 overrides 20.
 
