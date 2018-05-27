@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "debug": "^3.1.0",
-    "mout": "^1.0.0",
+    "extend": "^3.0.1",
     "nconf": "^0.8.4",
     "nconf-etcd2": "^1.1.7"
   },

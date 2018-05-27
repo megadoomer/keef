@@ -138,7 +138,7 @@ node server -p 3001 -l stdout -l file
    , shorthands   = require('./lib/shorthands')                                   // quick argv shorthands mapping
    , defaults     = require('./lib/defaults')                                     // config defaults
    , overrides    = require('./lib/overrides')                                    // static system overrides that can't / shouldn't change
-   , merge        = require('mout/object/merge')
+   , merge        = require('extend')
    , keefcheck    = /^keef/
    , apppaths     = [ ]
    , defaultCfg   = {}
@@ -240,7 +240,7 @@ apppaths.forEach(function( pconf ){
    var config;
    try{
       config = require( path.join( pconf, 'conf' ) );
-      defaultCfg = merge( defaultCfg, config );
+      defaultCfg = merge(true, {}, defaultCfg, config );
       debug('loaded package defaults from %s', pconf );
    } catch( e ){
       debug('unable to load %s configuration: %s', pconf, e.message );
@@ -258,7 +258,7 @@ if( etc_config && etc_config.hosts ){
 
 apppaths.pop();
 
-defaultCfg = merge( defaultCfg, defaults );
+defaultCfg = merge(true, {}, defaultCfg, defaults );
 conf
    .defaults(defaultCfg);
 
