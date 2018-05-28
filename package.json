@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://bitbucket.org/megadoomer/keef"
   },
-  "homepage": "https://esatterwhite@bitbucket.org/megadoomer/keef/src/master",
+  "homepage": "https://bitbucket.org/megadoomer/keef/src/master",
   "bugs": "https://bitbucket.org/megadoomer/keef/issues",
   "scripts": {
     "test": "tap test --cov -Rclassic",

@@ -7,8 +7,8 @@ const threw = tap.threw
 test('Conf loader', (t) => {
   t.test('configuration heirarchy', (tt) => {
     tt.equal( keef.get('foo:bar:baz'), "hello world", 'should read a directory')
-    tt.equal( keef.get('STORAGE_TEST_A'), 'foo', 'env STORATE_TEST_A' )
-    tt.equal( keef.get('STORAGE_TEST_B'), 'bar', 'env STORAGE_TEST_B' )
+    tt.equal( keef.get('storage_test_a'), 'foo', 'env STORATE_TEST_A' )
+    tt.equal( keef.get('storage_test_b'), 'bar', 'env STORAGE_TEST_B' )
     tt.test('should apply files in an overriding fashion', (ttt) => {
       ttt.equal(keef.get('foo:bar:bells'), 'real', "expected real")
       ttt.equal(keef.get('readible'), false )

@@ -196,7 +196,7 @@ debug('package path set to %s', overrides.PACKAGE_PATH )
 conf = nconf
       .overrides( overrides )
       .argv( shorthands )
-      .env({separator:'__'})
+      .env({separator:'__', parseValues: true, lowerCase: true})
 
 
 // if the specified config file is actually a directory
