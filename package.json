@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://bitbucket.org/megadoomer/keef"
   },
-  "homepage": "https://esatterwhite@bitbucket.org/megadoomer/keef",
+  "homepage": "https://esatterwhite@bitbucket.org/megadoomer/keef/src/master",
   "bugs": "https://bitbucket.org/megadoomer/keef/issues",
   "scripts": {
     "test": "tap test --cov -Rclassic",
@@ -27,7 +27,7 @@
   "dependencies": {
     "debug": "^3.1.0",
     "extend": "^3.0.1",
-    "nconf": "^0.8.4"
+    "nconf": "^0.10.0"
   },
   "optionalDependencies": {
     "nconf-etcd2": "^1.1.7"
